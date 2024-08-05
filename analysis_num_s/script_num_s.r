@@ -22,5 +22,7 @@ FrecPor_num_s <- FrecRel_num_s*100
 # Based on the absolute, relative and percentage frequency, calculate the frequency distribution
 DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 
-
+# Graphics and more
+# Create Bar plot for absolute frequency 
+barplot(FrecAbs_num_s)
 
