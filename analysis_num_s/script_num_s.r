@@ -15,4 +15,12 @@ FrecGrossPM_num_s
 
 # Create the object for the absolute frequency
 FrecAbs_num_s <- table(clases_num_s_x)
+# Visualize the object FrecRel_num_s within terminal, calculation of relative frequency
+FrecRel_num_s <- prop.table(FrecAbs_num_s)
+# Calculate percentage frequency
+FrecPor_num_s <- FrecRel_num_s*100
+# Based on the absolute, relative and percentage frequency, calculate the frequency distribution
+DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
+
+
 
