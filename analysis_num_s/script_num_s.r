@@ -22,6 +22,7 @@ FrecPor_num_s <- FrecRel_num_s*100
 # Based on the absolute, relative and percentage frequency, calculate the frequency distribution
 DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 
+
 # Graphics and more
 
 # Bar graphic
@@ -41,6 +42,22 @@ hist_num_s <- hist(udemy_data$num_subscribers, col = my_colors, main = "Histogra
 # Ogive 
 # Based on hist_num_s object, create an ogive
 ogive.freq(hist_num_s, ,type="b", col = "purple", xlab = "Number of subscribers", ylab = "Absolute Frequency")
+
+
+# Measurements regarding num_subscribers
+
+# Measures of central tendency
+# Mean 
+media_num_s <- mean(udemy_data$num_subscribers, na.rm = TRUE)
+# Median 
+mediana_num_s <- median(udemy_data$num_subscribers, na.rm = TRUE)
+# Mode requires us to create the function with a different library
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+moda_num_s <- getmode(udemy_data$num_subscribers)
+#
 
 
 
