@@ -30,7 +30,7 @@ DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 # Define colors object to use in graphics
 my_colors <- c("lavender", "mistyrose", "lightcyan", "lightblue", "cornsilk")
 # Create Bar plot for absolute frequency, apply colors object and
-barplot(FrecAbs_num_s, col = my_colors, beside = TRUE, main = "Bar chart of num_subscribers", xlab = "Class division", ylab = "amount of Udemy courses")
+barplot(FrecAbs_num_s, col = my_colors, beside = TRUE, main = "Bar chart of num_subscribers", xlab = "Class division", ylab = "amount of Udemy courses", names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", "(16000,20000]", "(20000, 24000]", "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]" ))
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
