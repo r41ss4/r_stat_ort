@@ -51,13 +51,32 @@ ogive.freq(hist_num_s, ,type="b", col = "purple", xlab = "Number of subscribers"
 media_num_s <- mean(udemy_data$num_subscribers, na.rm = TRUE)
 # Median 
 mediana_num_s <- median(udemy_data$num_subscribers, na.rm = TRUE)
-# Mode requires us to create the function with a different library
+# Mode requires us to create the function 
 getmode <- function(v) {
   uniqv <- unique(v)
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 moda_num_s <- getmode(udemy_data$num_subscribers)
-#
 
+# Separation measures
+# Deciles
+deciles_num_s <- quantile(udemy_data$num_subscribers,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
+# Quintiles
+# Quartiles
+cuartiles_num_s <- quantile(udemy_data$num_subscribers,c(0.25,0.50,0.75), na.rm = TRUE)
 
+# Measures of dispersion
+# Range
+rango_num_s  <- range(udemy_data$num_subscribers, na.rm = TRUE)
+# Interquartile range
+rango_inter_num_s <- IQR(udemy_data$num_subscribers, na.rm = TRUE)
+# Variance
+varianza_num_s <- var(udemy_data$num_subscribers, na.rm = TRUE) 
+# Standard deviation
+desviacion_est_num_s <- sd(udemy_data$num_subscribers, na.rm = TRUE)
+# Coefficient of variation requires us to create the function
+coef_var <- function(num_subscribers, na.rm = TRUE) {
+  desviacion_est_num_s / media_num_s 
+}
+coef_var_num_s <- coef_var(udemy_data$num_subscribers)
 
