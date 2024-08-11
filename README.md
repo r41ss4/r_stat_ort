@@ -12,4 +12,4 @@ In each folder, you can find a R script with the code to find different variable
 
 Since the ultimate purpose is to demostrate if a correlation exists between *num_subscribers*, *rating* and *is_paid*, their is a finale analysis based on regressional analysis in a separate folder.
 
-*Disclosure:* This project was created as the final asignment of Statistics in ORT University for a bachelore degree of International Studies. Therefore, it is design only to merely implement descriptive statistics through R.
+*Disclosure:* This project was created as the final asignment of Statistics in [ORT University, Uruguay](https://www.ort.edu.uy/) for a bachelore degree of International Studies. Therefore, it is design only to merely implement descriptive statistics through R.
