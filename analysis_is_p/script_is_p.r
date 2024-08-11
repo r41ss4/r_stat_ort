@@ -22,13 +22,13 @@ DistFrec_is_p <- cbind(FrecAbs_is_p,FrecRel_is_p,FrecPor_is_p)
 
 # Bar graphic
 # Create bar graphic for absolute frequency 
-barplot(FrecAbs_is_p, ylim = c(0,14000),
-        xlim= c(0,5), main="Bar chart of is_pais absolute frequency", 
-        xlab="is_paid", ylab="Freq. Absoluta",col=wes_palette(n=2, name="Darjeeling1"))
+bar_s_paid <- barplot(FrecAbs_is_p, ylim = c(0,14000),
+              xlim= c(0,5), main="Bar chart of is_pais absolute frequency", 
+              xlab="is_paid", ylab="Freq. Absoluta",col=wes_palette(n=2, name="Darjeeling1"))
 
 # Pie chart
 # Create bar graphic for percentage frequency 
-pie(FrecPor_is_p, 
-    main="Pie chart of is_paid percentage frequency", 
-    col=wes_palette(n=2, name="Darjeeling1"))
+pie_is_p <- pie(FrecPor_is_p, 
+            main="Pie chart of is_paid percentage frequency", 
+            col=wes_palette(n=2, name="Darjeeling1"))
 
