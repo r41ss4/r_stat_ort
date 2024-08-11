@@ -29,9 +29,11 @@ DisFrec_rating <- cbind (FrecAbs_rating, FrecRel_rating, FrecPor_rating)
 # Bar graphic
 # Create bar graphic for absolute frequency 
 # Define colors object to use in graphics
-my_colors <- c("lavender", "mistyrose", "lightcyan", "lightblue", "cornsilk")
+install.packages('wesanderson')
+library('wesanderson')
 # Create Bar plot for absolute frequency, apply colors object and
-barplot(FrecAbs_rating, col = my_colors, 
+barplot(FrecAbs_rating, 
+        col=wes_palette(n=5, name="Darjeeling1"), 
         beside = TRUE, main = "Bar chart of rating", 
         xlab = "Rating", ylab = "Amount of Udemy courses", 
         names.arg = c("(0, 100]", "(100, 200]", "(200, 300]", 
@@ -42,21 +44,22 @@ barplot(FrecAbs_rating, col = my_colors,
 install.packages("agricolae")
 library(agricolae)
 # Create an object that contains a histogram
-hist_rating <- hist(udemy_data$rating, col = my_colors, 
+hist_rating <- hist(udemy_data$rating, col=wes_palette(n=10, name="Darjeeling1", type = "continuous"), 
                    main = "Histogram of rating", 
                    xlab = "Rating", ylab = "Number of courses")
 
+
 # Ogive 
 # Based on hist_num_s object, create an ogive
-ogive.freq(hist_rating,type="b", col = "purple", 
+ogive.freq(hist_rating,type="b", col=wes_palette(n=1, name="Darjeeling1"), 
            xlab = "Rating", ylab = "Absolute Frequency")
 
 # Pie chart
 # Create bar graphic for absolute frequency 
-pie(FrecAbs_num_s,
+pie(FrecPor_rating,
     labels = c("(0, 100]", "(100, 200]", "(200, 300]", 
                "(300, 400]", "(400,500]"), 
-    col= my_colors, 
+    col=wes_palette(n=5, name="Darjeeling1"), 
     main="Pie Chart of num_subscribers absolute frequency")
 
 
@@ -95,4 +98,15 @@ coef_var <- function(rating, na.rm = TRUE) {
   desviacion_est_rating / media_rating 
 }
 coef_var_rating <- coef_var(udemy_data$rating)
+
+
+# Graphic of atipic measurements
+# Boxplot
+boxplot(udemy_data$rating, 
+        main = "Boxplot rating & atipic measurements",
+        xlab = "Rating",
+        ylab = "All courses",
+        col = "orange",
+        border = "brown",
+        horizontal = TRUE)
 
