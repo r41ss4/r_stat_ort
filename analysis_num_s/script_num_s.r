@@ -13,9 +13,11 @@ clases_num_s_x <- cut(udemy_data$num_subscribers, breaks = clases_num_s)
 FrecGrossPM_num_s  <- data.frame(table (clases_num_s_x))
 FrecGrossPM_num_s
 
+
+# Frequencies
 # Create the object for the absolute frequency
 FrecAbs_num_s <- table(clases_num_s_x)
-# Visualize the object FrecRel_num_s within terminal, calculation of relative frequency
+# Create the object for relative frequency
 FrecRel_num_s <- prop.table(FrecAbs_num_s)
 # Calculate percentage frequency
 FrecPor_num_s <- FrecRel_num_s*100
@@ -28,20 +30,39 @@ DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 # Bar graphic
 # Create bar graphic for absolute frequency 
 # Define colors object to use in graphics
-my_colors <- c("lavender", "mistyrose", "lightcyan", "lightblue", "cornsilk")
-# Create Bar plot for absolute frequency, apply colors object and
-barplot(FrecAbs_num_s, col = my_colors, beside = TRUE, main = "Bar chart of num_subscribers", xlab = "Class division", ylab = "amount of Udemy courses", names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", "(16000,20000]", "(20000, 24000]", "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]" ))
+install.packages('wesanderson')
+library('wesanderson')
+# Create Bar plot for absolute frequency and apply colors object 
+barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+        beside = TRUE, main = "Bar chart of num_subscribers", 
+        xlab = "Number of subscribers in classes division", 
+        ylab = "Amount of Udemy courses", 
+        names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
+                      "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
+                      "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"))
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
 install.packages("agricolae")
 library(agricolae)
 # Create an object that contains a histogram
-hist_num_s <- hist(udemy_data$num_subscribers, col = my_colors, main = "Histogram of num_subscribers", xlab = "Number of subscribers", ylab = "Number of courses")
+hist_num_s <- hist(udemy_data$num_subscribers, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+                   main = "Histogram of num_subscribers", 
+                   xlab = "Number of subscribers", ylab = "Number of courses")
 
 # Ogive 
 # Based on hist_num_s object, create an ogive
-ogive.freq(hist_num_s, ,type="b", col = "purple", xlab = "Number of subscribers", ylab = "Absolute Frequency")
+ogive.freq(hist_num_s, ,type="b", col=wes_palette(n=1, name="Darjeeling1"), 
+           xlab = "Number of subscribers", ylab = "Absolute Frequency")
+
+# Pie chart
+# Create bar graphic for absolute frequency 
+pie(FrecPor_num_s,
+    labels = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", 
+               "(16000,20000]", "(20000, 24000]", "(24000, 28000]", 
+               "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"), 
+    col=wes_palette(n=10, name="Darjeeling1", type = "continuous"),
+    main="Pie Chart of num_subscribers absolute frequency")
 
 
 # Measurements regarding num_subscribers
@@ -80,3 +101,13 @@ coef_var <- function(num_subscribers, na.rm = TRUE) {
 }
 coef_var_num_s <- coef_var(udemy_data$num_subscribers)
 
+
+# Graphic of atipic measurements
+# Boxplot
+boxplot(FrecAbs_num_s, 
+        main = "Boxplot rating & atipic measurements",
+        xlab = "Number of subscribers",
+        ylab = "All courses",
+        col = "orange",
+        border = "brown",
+        horizontal = TRUE)
