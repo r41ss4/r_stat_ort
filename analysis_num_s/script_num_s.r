@@ -43,6 +43,7 @@ bar_num_s <- barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", ty
              ylab = "Amount of Udemy courses", 
              ylim = c(0,13000), 
              names.arg = rang_label_num_s)
+# Adds a small square with color explanation
 legend(x = "topright", 
        legend = c(rang_label_num_s), 
        fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
@@ -58,6 +59,7 @@ hist_num_s <- hist(udemy_data$num_subscribers, col=wes_palette(n=10, name="Darje
               ylim = c(0,14000),
               xlab = "Number of subscribers", 
               ylab = "Number of courses")
+# Adds a small square with color explanation
 legend(x = "topright", 
        legend = c(rang_label_num_s), 
        fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
