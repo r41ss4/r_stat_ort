@@ -6,7 +6,6 @@ View(udemy_data)
 
 # Observe  the minimum, maximum, quartiles, mean, median and NA data
 summary_is_p <- summary(udemy_data$is_paid)
-print(summary_is_p)
 
 # Frequencies
 # Create the object for the absolute frequency
@@ -23,11 +22,13 @@ DistFrec_is_p <- cbind(FrecAbs_is_p,FrecRel_is_p,FrecPor_is_p)
 
 # Bar graphic
 # Create bar graphic for absolute frequency 
-barplot(FrecAbs_is_p,ylim = c(0,14000),
-        xlim= c(0,5), main="Gráfico de barras de Frecuencia Absoluta", 
-        xlab="is_paid", ylab="Freq. Absoluta",col=c(3,4))
+barplot(FrecAbs_is_p, ylim = c(0,14000),
+        xlim= c(0,5), main="Bar chart of is_pais absolute frequency", 
+        xlab="is_paid", ylab="Freq. Absoluta",col=wes_palette(n=2, name="Darjeeling1"))
 
 # Pie chart
 # Create bar graphic for percentage frequency 
-pie(FrecPor_is_p, main="Pie Chart of Percentage Frequency", col=c(3,4))
+pie(FrecPor_is_p, 
+    main="Pie chart of is_paid percentage frequency", 
+    col=wes_palette(n=2, name="Darjeeling1"))
 
