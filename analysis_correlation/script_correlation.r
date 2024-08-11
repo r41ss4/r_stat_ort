@@ -36,9 +36,10 @@ library(ggplot2)
 scat_corr_r_n <- ggplot(udemy_data, aes(x=udemy_data$rating, 
                        y=udemy_data$num_subscribers, 
                        group=clases_rating_x)) + geom_point(aes(color=
-                                                clases_rating_x)) + scale_color_manual(values=
-                                                c(wes_palette(n=5, name="Darjeeling1"))) + ggtitle("Scatter of rating & number of subscribers") + xlab("
-                                                Rating") + ylab("Numer of Subscribers") + theme_bw()
+                       clases_rating_x)) + scale_color_manual(values=
+                       c(wes_palette(n=5, name="Darjeeling1"))) + ggtitle("Scatter 
+                       of rating & number of subscribers") + xlab("
+                       Rating") + ylab("Numer of Subscribers") + theme_bw()
 # Another way of the same scatter diagram could be
 scat_plot_corr_r_n <- plot(udemy_data$rating, udemy_data$num_subscribers, main = 'Correlation', 
      ylab = 'Number of subscribers',xlab = 'Rating', 
@@ -73,17 +74,13 @@ table_is_p <- table(udemy_data$is_paid, clases_num_s_x)
 bar_group_n_p <- barplot(table_is_p, xlab="Number of subscribers", 
                  main="Grouped Barplot: num_subscribers & is_paid",beside=TRUE, 
                  ylim = c(0,15000), 
-                 names.arg = c("(0, 4000]", "(4000, 8000]", 
-                 "(8000, 12000]", "(12000, 16000]", "(16000,20000]", 
-                 "(20000, 24000]", "(24000, 28000]", "(28000, 32000]", 
-                 "(32000, 36000]", "(36000, 40000]"), 
+                 names.arg = rang_label_num_s, 
                  col = c(wes_palette(n=2, name="Darjeeling1")), 
                  ylab="Number of courses")
 # Adds a small square with color explanation
 legend(x = "topright", 
        legend = c("False", "True"), 
        fill = wes_palette(n=2, name="Darjeeling1"), title = "Status is_paid")
-
 
 
 
