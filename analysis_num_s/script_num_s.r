@@ -32,14 +32,17 @@ DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 # Define colors object to use in graphics
 install.packages('wesanderson')
 library('wesanderson')
+# Create an object with ranges
+rang_label_num_s = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
+                    "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
+                    "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]")
 # Create Bar plot for absolute frequency and apply colors object 
 bar_num_s <- barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
              beside = TRUE, main = "Bar chart of num_subscribers", 
              xlab = "Number of subscribers in classes division", 
              ylab = "Amount of Udemy courses", 
-             names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
-                      "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
-                      "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"))
+             ylim = c(0,13000), 
+             names.arg = rang_label_num_s)
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
@@ -48,7 +51,9 @@ library(agricolae)
 # Create an object that contains a histogram
 hist_num_s <- hist(udemy_data$num_subscribers, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
               main = "Histogram of num_subscribers", 
-              xlab = "Number of subscribers", ylab = "Number of courses")
+              ylim = c(0,14000),
+              xlab = "Number of subscribers", 
+              ylab = "Number of courses")
 
 # Ogive 
 # Based on hist_num_s object, create an ogive
@@ -58,9 +63,7 @@ ogive_num_s <- ogive.freq(hist_num_s, ,type="b", col=wes_palette(n=1, name="Darj
 # Pie chart
 # Create bar graphic for absolute frequency 
 pie_num_s <- pie(FrecPor_num_s,
-             labels = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", 
-             "(16000,20000]", "(20000, 24000]", "(24000, 28000]", 
-             "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"), 
+             labels = rang_label_num_s, 
              col=wes_palette(n=10, name="Darjeeling1", type = "continuous"),
              main="Pie Chart of num_subscribers absolute frequency")
 
@@ -97,7 +100,7 @@ variance_num_s <- var(udemy_data$num_subscribers, na.rm = TRUE)
 desv_est_num_s <- sd(udemy_data$num_subscribers, na.rm = TRUE)
 # Coefficient of variation requires us to create the function
 coef_var <- function(num_subscribers, na.rm = TRUE) {
-  desviation_est_num_s / media_num_s 
+  desv_est_num_s / media_num_s 
 }
 coef_var_num_s <- coef_var(udemy_data$num_subscribers)
 
