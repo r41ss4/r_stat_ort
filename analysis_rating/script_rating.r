@@ -31,22 +31,25 @@ DisFrec_rating <- cbind (FrecAbs_rating, FrecRel_rating, FrecPor_rating)
 # Define colors object to use in graphics
 install.packages('wesanderson')
 library('wesanderson')
+# Create an object with ranges
+rang_label_rating = c("(0, 100]", "(100, 200]", "(200, 300]", 
+                      "(300, 400]", "(400,500]")
 # Create Bar plot for absolute frequency, apply colors object and
 bar_rating <- barplot(FrecAbs_rating, 
               col=wes_palette(n=5, name="Darjeeling1"), 
               beside = TRUE, main = "Bar chart of rating", 
               xlab = "Rating", ylab = "Amount of Udemy courses", 
-              names.arg = c("(0, 100]", "(100, 200]", "(200, 300]", 
-                        "(300, 400]", "(400,500]"))
+              names.arg = rang_label_rating)
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
 install.packages("agricolae")
 library(agricolae)
 # Create an object that contains a histogram
-hist_rating <- hist(udemy_data$rating, col=wes_palette(n=10, name="Darjeeling1", type = "continuous"), 
-                   main = "Histogram of rating", 
-                   xlab = "Rating", ylab = "Number of courses")
+hist_rating <- hist(udemy_data$rating, col=wes_palette(n=10, name="Darjeeling1", 
+               type = "continuous"), ylim = c(0,6000),
+               main = "Histogram of rating", xlab = "Rating", 
+               ylab = "Number of courses")
 
 
 # Ogive 
@@ -56,9 +59,7 @@ ogive_rating <- ogive.freq(hist_rating,type="b", col=wes_palette(n=1, name="Darj
 
 # Pie chart
 # Create bar graphic for absolute frequency 
-pie_rating <- pie(FrecPor_rating,
-              labels = c("(0, 100]", "(100, 200]", "(200, 300]", 
-              "(300, 400]", "(400,500]"), 
+pie_rating <- pie(FrecPor_rating, labels = rang_label_rating, 
               col=wes_palette(n=5, name="Darjeeling1"), 
               main="Pie Chart of num_subscribers absolute frequency")
 
