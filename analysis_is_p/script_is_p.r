@@ -25,10 +25,28 @@ DistFrec_is_p <- cbind(FrecAbs_is_p,FrecRel_is_p,FrecPor_is_p)
 bar_s_paid <- barplot(FrecAbs_is_p, ylim = c(0,14000),
               xlim= c(0,5), main="Bar chart of is_pais absolute frequency", 
               xlab="is_paid", ylab="Freq. Absoluta",col=wes_palette(n=2, name="Darjeeling1"))
+# Adds a small square with color explanation
+legend(x = "topright", 
+       legend = c("True", "False"), 
+       fill = c(wes_palette(n=2, name="Darjeeling1")), 
+       title = "Status is_paid")
 
 # Pie chart
 # Create bar graphic for percentage frequency 
 pie_is_p <- pie(FrecPor_is_p, 
             main="Pie chart of is_paid percentage frequency", 
             col=wes_palette(n=2, name="Darjeeling1"))
+
+# Install selected package to make piecharts (plotly)
+install.packages("plotly")
+# Call needed libraries
+library(plotly)
+#Determinar FrecAbs_num_s as data.frame
+FrecAbs_is_p_frame = data.frame(FrecAbs_is_p)
+# Create pie chart for absolute frequency
+pie_rating = plot_ly(FrecAbs_is_p_frame, labels = rang_label_rating, 
+                     values=FrecPor_is_p, type = 'pie', 
+                     marker=list(colors=c(wes_palette(n=2, name="Darjeeling1")))) %>% layout(
+                     title="Pie Chart of is_paid absolute frequency")
+pie_rating 
 
