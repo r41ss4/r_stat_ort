@@ -40,6 +40,11 @@ bar_rating <- barplot(FrecAbs_rating,
               beside = TRUE, main = "Bar chart of rating", 
               xlab = "Rating", ylab = "Amount of Udemy courses", 
               names.arg = rang_label_rating)
+# Adds a small square with color explanation
+legend(x = "topleft", 
+       legend = c(rang_label_rating), 
+       fill = wes_palette(n=5, name="Darjeeling1"), 
+       title = "Ranges", xpd=TRUE, cex=0.8, inset=c(+.03, -.05)) 
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
@@ -50,7 +55,11 @@ hist_rating <- hist(udemy_data$rating, col=wes_palette(n=10, name="Darjeeling1",
                type = "continuous"), ylim = c(0,6000),
                main = "Histogram of rating", xlab = "Rating", 
                ylab = "Number of courses")
-
+# Adds a small square with color explanation
+legend(x = "topleft", 
+       legend = c(rang_label_num_s), 
+       fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+       title = "Ranges", xpd=TRUE, cex=0.6, inset=c(+.02, -.08)) 
 
 # Ogive 
 # Based on hist_num_s object, create an ogive
@@ -58,10 +67,18 @@ ogive_rating <- ogive.freq(hist_rating,type="b", col=wes_palette(n=1, name="Darj
                 xlab = "Rating", ylab = "Absolute Frequency")
 
 # Pie chart
-# Create bar graphic for absolute frequency 
-pie_rating <- pie(FrecPor_rating, labels = rang_label_rating, 
-              col=wes_palette(n=5, name="Darjeeling1"), 
-              main="Pie Chart of num_subscribers absolute frequency")
+# Install selected package to make piecharts (plotly)
+install.packages("plotly")
+# Call needed libraries
+library(plotly)
+#Determinar FrecAbs_num_s as data.frame
+FrecAbs_rating_frame = data.frame(FrecAbs_rating)
+# Create pie chart for absolute frequency
+pie_rating = plot_ly(FrecAbs_rating_frame, labels = rang_label_rating, 
+                    values=FrecPor_rating, type = 'pie', 
+                    marker=list(colors=c(wes_palette(n=5, name="Darjeeling1")))) %>% layout(
+                    title="Pie Chart of rating absolute frequency")
+pie_rating 
 
 
 # Measurements regarding num_subscribers
