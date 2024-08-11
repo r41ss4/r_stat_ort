@@ -33,11 +33,11 @@ DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 install.packages('wesanderson')
 library('wesanderson')
 # Create Bar plot for absolute frequency and apply colors object 
-barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
-        beside = TRUE, main = "Bar chart of num_subscribers", 
-        xlab = "Number of subscribers in classes division", 
-        ylab = "Amount of Udemy courses", 
-        names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
+bar_num_s <- barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+             beside = TRUE, main = "Bar chart of num_subscribers", 
+             xlab = "Number of subscribers in classes division", 
+             ylab = "Amount of Udemy courses", 
+             names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
                       "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
                       "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"))
 
@@ -47,22 +47,22 @@ install.packages("agricolae")
 library(agricolae)
 # Create an object that contains a histogram
 hist_num_s <- hist(udemy_data$num_subscribers, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
-                   main = "Histogram of num_subscribers", 
-                   xlab = "Number of subscribers", ylab = "Number of courses")
+              main = "Histogram of num_subscribers", 
+              xlab = "Number of subscribers", ylab = "Number of courses")
 
 # Ogive 
 # Based on hist_num_s object, create an ogive
-ogive.freq(hist_num_s, ,type="b", col=wes_palette(n=1, name="Darjeeling1"), 
-           xlab = "Number of subscribers", ylab = "Absolute Frequency")
+ogive_num_s <- ogive.freq(hist_num_s, ,type="b", col=wes_palette(n=1, name="Darjeeling1"), 
+               xlab = "Number of subscribers", ylab = "Absolute Frequency")
 
 # Pie chart
 # Create bar graphic for absolute frequency 
-pie(FrecPor_num_s,
-    labels = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", 
-               "(16000,20000]", "(20000, 24000]", "(24000, 28000]", 
-               "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"), 
-    col=wes_palette(n=10, name="Darjeeling1", type = "continuous"),
-    main="Pie Chart of num_subscribers absolute frequency")
+pie_num_s <- pie(FrecPor_num_s,
+             labels = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", 
+             "(16000,20000]", "(20000, 24000]", "(24000, 28000]", 
+             "(28000, 32000]", "(32000, 36000]", "(36000, 40000]"), 
+             col=wes_palette(n=10, name="Darjeeling1", type = "continuous"),
+             main="Pie Chart of num_subscribers absolute frequency")
 
 
 # Measurements regarding num_subscribers
@@ -81,33 +81,33 @@ moda_num_s <- getmode(udemy_data$num_subscribers)
 
 # Separation measures
 # Deciles
-deciles_num_s <- quantile(udemy_data$num_subscribers,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
+decils_num_s <- quantile(udemy_data$num_subscribers,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
 # Quintiles
 # Quartiles
-cuartiles_num_s <- quantile(udemy_data$num_subscribers,c(0.25,0.50,0.75), na.rm = TRUE)
+quarts_num_s <- quantile(udemy_data$num_subscribers,c(0.25,0.50,0.75), na.rm = TRUE)
 
 # Measures of dispersion
 # Range
-rango_num_s  <- range(udemy_data$num_subscribers, na.rm = TRUE)
+range_num_s  <- range(udemy_data$num_subscribers, na.rm = TRUE)
 # Interquartile range
-rango_inter_num_s <- IQR(udemy_data$num_subscribers, na.rm = TRUE)
+range_inter_num_s <- IQR(udemy_data$num_subscribers, na.rm = TRUE)
 # Variance
-varianza_num_s <- var(udemy_data$num_subscribers, na.rm = TRUE) 
+variance_num_s <- var(udemy_data$num_subscribers, na.rm = TRUE) 
 # Standard deviation
-desviacion_est_num_s <- sd(udemy_data$num_subscribers, na.rm = TRUE)
+desv_est_num_s <- sd(udemy_data$num_subscribers, na.rm = TRUE)
 # Coefficient of variation requires us to create the function
 coef_var <- function(num_subscribers, na.rm = TRUE) {
-  desviacion_est_num_s / media_num_s 
+  desviation_est_num_s / media_num_s 
 }
 coef_var_num_s <- coef_var(udemy_data$num_subscribers)
 
 
 # Graphic of atipic measurements
 # Boxplot
-boxplot(FrecAbs_num_s, 
-        main = "Boxplot rating & atipic measurements",
-        xlab = "Number of subscribers",
-        ylab = "All courses",
-        col = "orange",
-        border = "brown",
-        horizontal = TRUE)
+atip_num_s <- boxplot(FrecAbs_num_s, 
+              main = "Boxplot rating & atipic measurements",
+              xlab = "Number of subscribers",
+              ylab = "All courses",
+              col = "orange",
+              border = "brown",
+              horizontal = TRUE)
