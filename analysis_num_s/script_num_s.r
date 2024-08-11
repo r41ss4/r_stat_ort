@@ -28,21 +28,25 @@ DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 # Graphics and more
 
 # Bar graphic
-# Create bar graphic for absolute frequency 
-# Define colors object to use in graphics
-install.packages('wesanderson')
-library('wesanderson')
 # Create an object with ranges
 rang_label_num_s = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
-                    "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
-                    "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]")
-# Create Bar plot for absolute frequency and apply colors object 
+                     "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
+                     "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]")
+# Install color pallette package (wesanderson) 
+install.packages("wesanderson")
+# Call needed library
+library(wesanderson)
+# Create Bar plot for absolute frequency
 bar_num_s <- barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
              beside = TRUE, main = "Bar chart of num_subscribers", 
              xlab = "Number of subscribers in classes division", 
              ylab = "Amount of Udemy courses", 
              ylim = c(0,13000), 
              names.arg = rang_label_num_s)
+legend(x = "topright", 
+       legend = c(rang_label_num_s), 
+       fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+       title = "Ranges") 
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
@@ -54,6 +58,10 @@ hist_num_s <- hist(udemy_data$num_subscribers, col=wes_palette(n=10, name="Darje
               ylim = c(0,14000),
               xlab = "Number of subscribers", 
               ylab = "Number of courses")
+legend(x = "topright", 
+       legend = c(rang_label_num_s), 
+       fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+       title = "Ranges") 
 
 # Ogive 
 # Based on hist_num_s object, create an ogive
@@ -61,11 +69,18 @@ ogive_num_s <- ogive.freq(hist_num_s, ,type="b", col=wes_palette(n=1, name="Darj
                xlab = "Number of subscribers", ylab = "Absolute Frequency")
 
 # Pie chart
-# Create bar graphic for absolute frequency 
-pie_num_s <- pie(FrecPor_num_s,
-             labels = rang_label_num_s, 
-             col=wes_palette(n=10, name="Darjeeling1", type = "continuous"),
-             main="Pie Chart of num_subscribers absolute frequency")
+# Install selected package to make piecharts (plotly)
+install.packages("plotly")
+# Call needed libraries
+library(plotly)
+#Determinar FrecAbs_num_s as data.frame
+FrecAbs_num_s_frame = data.frame(FrecAbs_num_s)
+# Create pie chart for absolute frequency
+pie_num_s = plot_ly(FrecAbs_num_s_frame, labels = rang_label_num_s, 
+                    values=FrecPor_num_s,  type = 'pie', 
+                    marker=list(colors=c(wes_palette(n=10, name="Darjeeling1", type = "continuous")))) %>% layout(
+                    title="Pie Chart of num_subscribers absolute frequency")
+pie_num_s
 
 
 # Measurements regarding num_subscribers
