@@ -32,12 +32,12 @@ DisFrec_rating <- cbind (FrecAbs_rating, FrecRel_rating, FrecPor_rating)
 install.packages('wesanderson')
 library('wesanderson')
 # Create Bar plot for absolute frequency, apply colors object and
-barplot(FrecAbs_rating, 
-        col=wes_palette(n=5, name="Darjeeling1"), 
-        beside = TRUE, main = "Bar chart of rating", 
-        xlab = "Rating", ylab = "Amount of Udemy courses", 
-        names.arg = c("(0, 100]", "(100, 200]", "(200, 300]", 
-                      "(300, 400]", "(400,500]"))
+bar_rating <- barplot(FrecAbs_rating, 
+              col=wes_palette(n=5, name="Darjeeling1"), 
+              beside = TRUE, main = "Bar chart of rating", 
+              xlab = "Rating", ylab = "Amount of Udemy courses", 
+              names.arg = c("(0, 100]", "(100, 200]", "(200, 300]", 
+                        "(300, 400]", "(400,500]"))
 
 # Histogram
 # For some graphs, it is necessary to download agricolae library
@@ -51,16 +51,16 @@ hist_rating <- hist(udemy_data$rating, col=wes_palette(n=10, name="Darjeeling1",
 
 # Ogive 
 # Based on hist_num_s object, create an ogive
-ogive.freq(hist_rating,type="b", col=wes_palette(n=1, name="Darjeeling1"), 
-           xlab = "Rating", ylab = "Absolute Frequency")
+ogive_rating <- ogive.freq(hist_rating,type="b", col=wes_palette(n=1, name="Darjeeling1"), 
+                xlab = "Rating", ylab = "Absolute Frequency")
 
 # Pie chart
 # Create bar graphic for absolute frequency 
-pie(FrecPor_rating,
-    labels = c("(0, 100]", "(100, 200]", "(200, 300]", 
-               "(300, 400]", "(400,500]"), 
-    col=wes_palette(n=5, name="Darjeeling1"), 
-    main="Pie Chart of num_subscribers absolute frequency")
+pie_rating <- pie(FrecPor_rating,
+              labels = c("(0, 100]", "(100, 200]", "(200, 300]", 
+              "(300, 400]", "(400,500]"), 
+              col=wes_palette(n=5, name="Darjeeling1"), 
+              main="Pie Chart of num_subscribers absolute frequency")
 
 
 # Measurements regarding num_subscribers
@@ -79,34 +79,34 @@ moda_rating <- getmode(udemy_data$rating)
 
 # Separation measures
 # Deciles
-deciles_rating <- quantile(udemy_data$rating,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
+decils_rating <- quantile(udemy_data$rating,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
 # Quintiles
 # Quartiles
-cuartiles_rating <- quantile(udemy_data$rating, c(0.25,0.50,0.75), na.rm = TRUE)
+quarts_rating <- quantile(udemy_data$rating, c(0.25,0.50,0.75), na.rm = TRUE)
 
 # Measures of dispersion
 # Range
-rango_rating  <- range(udemy_data$rating, na.rm = TRUE)
+range_rating  <- range(udemy_data$rating, na.rm = TRUE)
 # Interquartile range
-rango_inter_rating <- IQR(udemy_data$rating, na.rm = TRUE)
+range_inter_rating <- IQR(udemy_data$rating, na.rm = TRUE)
 # Variance
-varianza_rating <- var(udemy_data$rating, na.rm = TRUE) 
+variance_rating <- var(udemy_data$rating, na.rm = TRUE) 
 # Standard deviation
-desviacion_est_rating <- sd(udemy_data$rating, na.rm = TRUE)
+desv_est_rating <- sd(udemy_data$rating, na.rm = TRUE)
 # Coefficient of variation requires us to create the function
 coef_var <- function(rating, na.rm = TRUE) {
-  desviacion_est_rating / media_rating 
+  desv_est_rating / media_rating 
 }
 coef_var_rating <- coef_var(udemy_data$rating)
 
 
 # Graphic of atipic measurements
 # Boxplot
-boxplot(udemy_data$rating, 
-        main = "Boxplot rating & atipic measurements",
-        xlab = "Rating",
-        ylab = "All courses",
-        col = "orange",
-        border = "brown",
-        horizontal = TRUE)
-
+atip_rating <- boxplot(udemy_data$rating, 
+               main = "Boxplot rating & atipic measurements",
+               xlab = "Rating",
+               ylab = "All courses",
+               col = "orange",
+               border = "brown",
+               horizontal = TRUE)
+  
