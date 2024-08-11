@@ -59,39 +59,33 @@ ggplot(udemy_data, aes(x=udemy_data$rating,
                         xlab("Rating") + ylab("Numer of Subscribers") + theme_bw() 
 # Another way of the same scatter diagram could be
 plot(x = udemy_data$rating, y = udemy_data$num_subscribers, 
-     col= wes_palette(n=2, name="Darjeeling1")) # FIX COLORS
-# Next line adds a smal square with color explanation
+     col= wes_palette(n=2, name="Darjeeling1")) 
+# Adds a small square with color explanation
 legend(x = "topleft", 
        legend = c("True", "False"), 
        fill = c(wes_palette(n=2, name="Darjeeling1")), 
        title = "Status is_paid")
 
-# Bar graphic
-# This has issue: ✖ Fix the following mappings: `y`.
-ggplot(udemy_data, aes(fill=udemy_data$is_paid, 
-                 y= FrecGrossPM__num_s,
-                 x=udemy_data$num_subscribers,
-                 group=clases_num_s_x)) + scale_color_manual(values=
-                 c(wes_palette(n=2, name="Darjeeling1"))) + ggtitle("Scatter of number of subscribers 
-                 & is_paid") + xlab("
-                 Number of subscribers") + ylab("Numer of courses") + theme_bw(
-                 ) + geom_bar(position="dodge2", stat="identity", 
-                fill = wes_palette(n=2, name="Darjeeling1"), 
-                colour = "black")
-# This one solves it, but bars are too together and I can not modify this
-# which is why I am trying to use ggplot to solve this
-barplot(FrecAbs_num_s, 
-        col=wes_palette(n=2, name="Darjeeling1"), 
-        font.axis=2, 
-        beside=T, 
-        ylim = c(0,14000), 
-        main="Bar chart of is_pais absolute frequency", 
-        xlab="Number of subscribers", 
-        ylab="Amount of courses", 
-        font.lab=2, 
-        names.arg = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", "(12000, 16000]", "(16000,20000]", "(20000, 24000]", "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", 
-                      "(36000, 40000]"))
+# Grouped Bar graphic
+# Created necessary table element
+table_is_p <- table(udemy_data$is_paid, clases_num_s_x)
+# Create group barplot
+barplot(table_is_p, xlab="Number of subscribers", 
+        main="Grouped Barplot: num_subscribers & is_paid",beside=TRUE, 
+        ylim = c(0,15000), 
+        names.arg = c("(0, 4000]", "(4000, 8000]", 
+        "(8000, 12000]", "(12000, 16000]", "(16000,20000]", 
+        "(20000, 24000]", "(24000, 28000]", "(28000, 32000]", 
+        "(32000, 36000]", "(36000, 40000]"), 
+        col = c(wes_palette(n=2, name="Darjeeling1")), 
+        ylab="Number of courses")
+# Adds a small square with color explanation
 legend(x = "topright", 
-       legend = c("True", "False"), 
+       legend = c("False", "True"), 
        fill = wes_palette(n=2, name="Darjeeling1"), title = "Status is_paid")
+
+
+
+
+
 
