@@ -99,6 +99,7 @@ moda_rating <- getmode(udemy_data$rating)
 # Deciles
 decils_rating <- quantile(udemy_data$rating,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
 # Quintiles
+quint_rating <- quantile(udemy_data$rating,c(0.20,0.40,0.60,0.80), na.rm = TRUE)
 # Quartiles
 quarts_rating <- quantile(udemy_data$rating, c(0.25,0.50,0.75), na.rm = TRUE)
 
@@ -127,4 +128,54 @@ atip_rating <- boxplot(udemy_data$rating,
                col = "orange",
                border = "brown",
                horizontal = TRUE)
-  
+ 
+
+# Tables
+# Install necessary libraries 
+install.packages("gt")
+library(gt)
+library(gtsummary)
+
+# Summary Table
+# Needed element names for table
+summary_rating_names <- names(summary_rating)
+# Transform summary into a data frame
+summary_rating_frame <- data.frame(Statistics = summary_rating_names, Value = as.numeric(summary_rating))
+# Create table with gt() 
+summary_rating_tabl <- summary_rating_frame%>% 
+  gt() %>% tab_header(title 
+  = "Summary num_subscribers")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
+
+# Deciles table
+# Needed element names for table
+decils_rating_names <- names(decils_rating)
+# Transform into a data frame
+decils_rating_frame <- data.frame(Percentage = decils_rating_names, Observations = as.numeric(decils_rating))
+# Create table with gt() 
+decils_rating_tabl <- decils_rating_frame%>% 
+  gt() %>% tab_header(title 
+  = "Deciles percentage and tendencies")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
+
+# Quintiles table
+# Needed element names for table
+quint_rating_names <- names(quint_rating)
+# Transform into a data frame
+quint_rating_frame <- data.frame(Percentage = quint_rating_names, Observations = as.numeric(quint_rating))
+# Create table with gt() 
+quint_rating_tabl <- quint_rating_frame%>% 
+  gt() %>% tab_header(title 
+  = "Quintiles percentage and tendencies")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
+
+# Quartiles table
+# Needed element names for table
+quarts_rating_names <- names(quarts_rating)
+# Transform into a data frame
+quarts_rating_frame <- data.frame(Percentage = quarts_rating_names, Observations = as.numeric(quarts_rating))
+# Create table with gt() 
+quarts_rating_tabl <- quarts_rating_frame%>% 
+  gt() %>% tab_header(title 
+  = "Quartiles percentage and tendencies")%>% opt_row_striping() %>% 
+  opt_table_lines("all") 
