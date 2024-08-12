@@ -1,5 +1,5 @@
 # Correlation analysis measurements
-#Covariances
+# Covariances
 cov_num_rating = cov(udemy_data$num_subscribers, udemy_data$rating)
 cov_num_paid = cov(udemy_data$num_subscribers, udemy_data$is_paid)
 cov_paid_rating = cov(udemy_data$is_paid, udemy_data$rating)
@@ -9,7 +9,7 @@ corr_num_rating = cor(udemy_data$num_subscribers, udemy_data$rating)
 corr_num_paid = cor(udemy_data$num_subscribers, udemy_data$is_paid)
 corr_paid_rating = cor(udemy_data$is_paid, udemy_data$rating)
 
-#Regression
+# Regression
 reg_num_rating = lm(udemy_data$num_subscribers~udemy_data$rating)
 reg_num_paid = lm(udemy_data$num_subscribers~udemy_data$is_paid)
 reg_paid_rating = lm(udemy_data$is_paid~udemy_data$rating)
@@ -24,8 +24,8 @@ install.packages("gmodels")
 library(gmodels)
 # Create the object for cross tabulation 
 crosstab_num_paid <- CrossTable(clases_num_s_x, udemy_data$is_paid, 
-                     dnn = c("Clases num_subscribers", "Status is_paid"), 
-                     format = "SPSS")
+                     dnn = c("Classes num_subscribers", "Status is_paid"), 
+                     format = "SPSS", output = "crosstab_num_paid.png")
 
 
 # Graphics
@@ -101,6 +101,43 @@ legend(x = "topright",
        title = "Status is_paid")
 
 
+# Tables
+# Necessary libraries
+install.packages("modelsummary")
+library(modelsummary)
+install.packages("webshot2")
+library(webshot2)
+install.packages("gt")
+library(gt)
+library(gtsummary)
 
+# Covariances table
+# Needed element names for table
+summary_num_s_names <- names(summary_num_s)
+# Transform into a data frame
+cov_frame <- data.frame(Variables = c("Num_subscribers - Rating", 
+                        "Num_subscribers - Is_paid", "Is_paid - Rating"), 
+                        Value = as.numeric(cov_num_rating, 
+                         cov_num_paid, cov_paid_rating))
+# Create table with gt() 
+cov_tabl <- cov_frame%>% 
+  gt() %>% tab_header(title 
+           = "Covariance analysis") %>% 
+           opt_row_striping() %>% opt_table_lines("all")
 
+# Correlation table
+# Transform into a data frame
+corr_frame <- data.frame(Variables = c("num_subscribers - rating", 
+                        "num_subscribers - is_paid", "is_paid - rating"), 
+                        Value = as.numeric(corr_num_rating, 
+                        corr_num_paid, corr_paid_rating))
+# Create table with gt() 
+corr_tabl <- corr_frame%>% 
+  gt() %>% tab_header(title 
+           = "Covariance analysis") %>% 
+           opt_row_striping() %>% opt_table_lines("all")
 
+# Regressions tables
+modelsummary(reg_num_rating, output = "reg_num_rating.png")
+modelsummary(reg_num_paid, output = "reg_num_paid.png")
+modelsummary(reg_paid_rating, output = "reg_paid_rating.png")

@@ -4,7 +4,7 @@ library(readr)
 udemy_data <- read_csv("udemy_data.csv")
 View(udemy_data)
 
-# Observe  the minimum, maximum, quartiles, mean, median and NA data
+# Summarized amount of FALSE and TRUE observations
 summary_is_p <- summary(udemy_data$is_paid)
 
 # Frequencies
@@ -47,5 +47,20 @@ pie_is_p = plot_ly(FrecAbs_is_p_frame, labels = label_s_p,
                      title="Pie Chart of is_paid absolute frequency")
 pie_is_p
 
+# Table
+# Install necessary libraries 
+install.packages("gt")
+library(gt)
+library(gtsummary)
 
+# Summary Table
+# Needed element names for table
+summary_is_p_names <- names(summary_is_p)
+# Transform summary into a data frame
+summary_is_p_frame <- data.frame(Statistics = summary_is_p_names, Value = as.numeric(summary_is_p))
+# Create table with gt() 
+summary_is_p_tabl <- summary_is_p_frame%>% 
+  gt() %>% tab_header(title 
+  = "Summary is_paid")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
 
