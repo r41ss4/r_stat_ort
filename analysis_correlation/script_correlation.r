@@ -27,6 +27,7 @@ crosstab_num_paid <- CrossTable(clases_num_s_x, udemy_data$is_paid,
                      dnn = c("Clases num_subscribers", "Status is_paid"), 
                      format = "SPSS")
 
+
 # Graphics
 
 # Needed elements
