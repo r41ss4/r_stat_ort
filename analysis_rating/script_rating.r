@@ -39,7 +39,7 @@ bar_rating <- barplot(FrecAbs_rating,
               col=wes_palette(n=5, name="Darjeeling1"), 
               beside = TRUE, main = "Bar chart of rating", 
               xlab = "Rating", ylab = "Amount of Udemy courses", 
-              names.arg = rang_label_rating)
+              names.arg = rang_label_rating) 
 # Adds a small square with color explanation
 legend(x = "topleft", 
        legend = c(rang_label_rating), 
