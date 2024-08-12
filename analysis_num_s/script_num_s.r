@@ -4,6 +4,7 @@ library(readr)
 udemy_data <- read_csv("udemy_data.csv")
 View(udemy_data)
 
+# Summary of variable and class division
 # Observe  the minimum, maximum, quartiles, mean, median and NA data
 summary_num_s <- summary(udemy_data$num_subscribers)
 
@@ -103,6 +104,7 @@ moda_num_s <- getmode(udemy_data$num_subscribers)
 # Deciles
 decils_num_s <- quantile(udemy_data$num_subscribers,c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90), na.rm = TRUE)
 # Quintiles
+quint_num_s <- quantile(udemy_data$num_subscribers,c(0.20,0.40,0.60,0.80), na.rm = TRUE)
 # Quartiles
 quarts_num_s <- quantile(udemy_data$num_subscribers,c(0.25,0.50,0.75), na.rm = TRUE)
 
@@ -131,3 +133,54 @@ atip_num_s <- boxplot(FrecAbs_num_s,
               col = "orange",
               border = "brown",
               horizontal = TRUE)
+
+
+# Tables
+# Install necessary libraries 
+install.packages("gt")
+library(gt)
+library(gtsummary)
+
+# Summary Table
+# Needed element names for table
+summary_num_s_names <- names(summary_num_s)
+# Transform summary into a data frame
+summary_num_s_frame <- data.frame(Statistics = summary_num_s_names, Value = as.numeric(summary_num_s))
+# Create table with gt() 
+summary_num_s_tabl <- summary_num_s_frame%>% 
+  gt() %>% tab_header(title 
+  = "Summary num_subscribers")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
+
+# Deciles table
+# Needed element names for table
+decils_num_s_names <- names(decils_num_s)
+# Transform into a data frame
+decils_num_s_frame <- data.frame(Percentage = decils_num_s_names, Observations = as.numeric(decils_num_s))
+# Create table with gt() 
+decils_num_s_tabl <- decils_num_s_frame%>% 
+  gt() %>% tab_header(title 
+  = "Deciles percentage and tendencies")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
+
+# Quintiles table
+# Needed element names for table
+quint_num_s_names <- names(quint_num_s)
+# Transform into a data frame
+quint_num_s_frame <- data.frame(Percentage = quint_num_s_names, Observations = as.numeric(quint_num_s))
+# Create table with gt() 
+quint_num_s_tabl <- quint_num_s_frame%>% 
+  gt() %>% tab_header(title 
+  = "Quintiles percentage and tendencies")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
+
+# Quartiles table
+# Needed element names for table
+quarts_num_s_names <- names(quarts_num_s)
+# Transform into a data frame
+quarts_num_s_frame <- data.frame(Percentage = quarts_num_s_names, Observations = as.numeric(quarts_num_s))
+# Create table with gt() 
+quarts_num_s_tabl <- quarts_num_s_frame%>% 
+  gt() %>% tab_header(title 
+  = "Quartiles percentage and tendencies")%>% opt_row_striping() %>% 
+  opt_table_lines("all")
