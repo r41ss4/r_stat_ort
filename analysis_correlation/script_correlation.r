@@ -17,6 +17,15 @@ reg_paid_rating = lm(udemy_data$is_paid~udemy_data$rating)
 # Verification with r2 (correlation square)
 corr_num_rating^2
 
+# Cross Tabulation
+# Install necessary package
+install.packages("gmodels")
+# Call library
+library(gmodels)
+# Create the object for cross tabulation 
+crosstab_num_paid <- CrossTable(clases_num_s_x, udemy_data$is_paid, 
+                     dnn = c("Clases num_subscribers", "Status is_paid"), 
+                     format = "SPSS")
 
 # Graphics
 
@@ -31,6 +40,13 @@ clases_num_s_x
 # Install necessary libraries 
 install.packages("ggplot2")
 library(ggplot2)
+# Create an object with ranges for rating
+rang_label_rating = c("(0, 100]", "(100, 200]", "(200, 300]", 
+                      "(300, 400]", "(400,500]")
+# Create an object with ranges for num_subscribers
+rang_label_num_s = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
+                     "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
+                     "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]")
 
 # Scatter Diagram: rating & num_subscribers
 scat_corr_r_n <- ggplot(udemy_data, aes(x=udemy_data$rating, 
@@ -44,10 +60,9 @@ scat_corr_r_n <- ggplot(udemy_data, aes(x=udemy_data$rating,
 scat_plot_corr_r_n <- plot(udemy_data$rating, udemy_data$num_subscribers, main = 'Correlation', 
      ylab = 'Number of subscribers',xlab = 'Rating', 
      col=wes_palette(n=5, name="Darjeeling1")[factor(clases_rating_x)]) 
-# Next line adds a smal square with color explanation
+# Adds a small square with color explanation
 legend(x = "topleft", 
-       legend = c("(0, 100]", "(100, 200]", "(200, 300]", 
-                  "(300, 400]", "(400,500]"), 
+       legend = c(rang_label_rating), 
        fill = wes_palette(n=5, name="Darjeeling1"), 
        title = "Ranting") 
 
@@ -60,6 +75,7 @@ scat_corr_r_n_p <- ggplot(udemy_data, aes(x=udemy_data$rating,
                    xlab("Rating") + ylab("Numer of Subscribers") + theme_bw() 
 # Another way of the same scatter diagram could be
 scat_corr_plot_r_n_p <- plot(x = udemy_data$rating, y = udemy_data$num_subscribers, 
+                        ylab = 'Rating',xlab = 'Number of subscribers', 
                         col= wes_palette(n=2, name="Darjeeling1")) 
 # Adds a small square with color explanation
 legend(x = "topleft", 
@@ -80,7 +96,8 @@ bar_group_n_p <- barplot(table_is_p, xlab="Number of subscribers",
 # Adds a small square with color explanation
 legend(x = "topright", 
        legend = c("False", "True"), 
-       fill = wes_palette(n=2, name="Darjeeling1"), title = "Status is_paid")
+       fill = wes_palette(n=2, name="Darjeeling1"), 
+       title = "Status is_paid")
 
 
 
