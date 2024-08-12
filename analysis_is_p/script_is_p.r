@@ -32,21 +32,20 @@ legend(x = "topright",
        title = "Status is_paid")
 
 # Pie chart
-# Create bar graphic for percentage frequency 
-pie_is_p <- pie(FrecPor_is_p, 
-            main="Pie chart of is_paid percentage frequency", 
-            col=wes_palette(n=2, name="Darjeeling1"))
-
 # Install selected package to make piecharts (plotly)
 install.packages("plotly")
 # Call needed libraries
 library(plotly)
+# Create an object with ranges
+label_s_p = c("False", "True")
 #Determinar FrecAbs_num_s as data.frame
 FrecAbs_is_p_frame = data.frame(FrecAbs_is_p)
 # Create pie chart for absolute frequency
-pie_rating = plot_ly(FrecAbs_is_p_frame, labels = rang_label_rating, 
+pie_is_p = plot_ly(FrecAbs_is_p_frame, labels = label_s_p, 
                      values=FrecPor_is_p, type = 'pie', 
                      marker=list(colors=c(wes_palette(n=2, name="Darjeeling1")))) %>% layout(
                      title="Pie Chart of is_paid absolute frequency")
-pie_rating 
+pie_is_p
+
+
 
