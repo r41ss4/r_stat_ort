@@ -1,8 +1,10 @@
-# Install necessary library
-# Install selected package to make piecharts (plotly)
-install.packages("plotly")
-# Install necessary libraries 
-install.packages("gt")
+# Install necessary libraries
+if (!require(readr)) install.packages("readr")
+if (!require(wesanderson)) install.packages("wesanderson")
+if (!require(agricolae)) install.packages("agricolae")
+if (!require(plotly)) install.packages("plotly")
+if (!require(gt)) install.packages("gt")
+if (!require(gtsummary)) install.packages("gtsummary")
 
 # Load necessary library
 library(readr)
