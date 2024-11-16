@@ -14,8 +14,8 @@ library(plotly)
 library(gt)
 library(gtsummary)
 
-# Import and read udemy_data.csv
-udemy_data <- read_csv("/Users/lexi/Documents/data_repos/r_stat_ort/udemy_data.csv")
+# Import and read udemy_data.csv from repository
+udemy_data <- read_csv("https://raw.githubusercontent.com/r41ss4/r_stat_ort/main/udemy_data.csv")
 View(udemy_data)
 
 # Observe  the minimum, maximum, quartiles, mean, median and NA data
