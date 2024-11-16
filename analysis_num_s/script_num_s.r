@@ -1,29 +1,42 @@
-# Download necessary library to read file 
+# Install necessary libraries
+if (!require(readr)) install.packages("readr")
+if (!require(wesanderson)) install.packages("wesanderson")
+if (!require(agricolae)) install.packages("agricolae")
+if (!require(plotly)) install.packages("plotly")
+if (!require(gt)) install.packages("gt")
+if (!require(gtsummary)) install.packages("gtsummary")
+
+# Load libraries
 library(readr)
+library(wesanderson)
+library(agricolae)
+library(plotly)
+library(gt)
+library(gtsummary)
+
 # Import and read udemy_data.csv
-udemy_data <- read_csv("udemy_data.csv")
+udemy_data <- read_csv("/Users/lexi/Documents/data_repos/r_stat_ort/udemy_data.csv")
 View(udemy_data)
 
 # Summary of variable and class division
-# Observe  the minimum, maximum, quartiles, mean, median and NA data
 summary_num_s <- summary(udemy_data$num_subscribers)
 
-# Given the large number of observations, use a class division within this variable
+# Use a class division within this variable
 clases_num_s <- seq(from = 0,to = 40000, by = 4000)
 clases_num_s_x <- cut(udemy_data$num_subscribers, breaks = clases_num_s)
-FrecGrossPM_num_s  <- data.frame(table (clases_num_s_x))
-FrecGrossPM_num_s
+frecGrossPM_num_s  <- data.frame(table (clases_num_s_x))
+frecGrossPM_num_s
 
 
 # Frequencies
 # Create the object for the absolute frequency
-FrecAbs_num_s <- table(clases_num_s_x)
+frecAbs_num_s <- table(clases_num_s_x)
 # Create the object for relative frequency
-FrecRel_num_s <- prop.table(FrecAbs_num_s)
+frecRel_num_s <- prop.table(frecAbs_num_s)
 # Calculate percentage frequency
-FrecPor_num_s <- FrecRel_num_s*100
-# Based on the absolute, relative and percentage frequency, calculate the frequency distribution
-DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
+frecPor_num_s <- frecRel_num_s*100
+# Calculate the frequency distribution
+disfrec_num_s <- cbind (frecAbs_num_s, frecRel_num_s, frecPor_num_s)
 
 
 # Graphics and more
@@ -33,34 +46,28 @@ DisFrec_num_s <- cbind (FrecAbs_num_s, FrecRel_num_s, FrecPor_num_s)
 rang_label_num_s = c("(0, 4000]", "(4000, 8000]", "(8000, 12000]", 
                      "(12000, 16000]", "(16000,20000]", "(20000, 24000]", 
                      "(24000, 28000]", "(28000, 32000]", "(32000, 36000]", "(36000, 40000]")
-# Install color pallette package (wesanderson) 
-install.packages("wesanderson")
-# Call needed library
-library(wesanderson)
+
 # Create Bar plot for absolute frequency
-bar_num_s <- barplot(FrecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
+bar_num_s <- barplot(frecAbs_num_s, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
              beside = TRUE, main = "Bar chart of num_subscribers", 
              xlab = "Number of subscribers in classes division", 
              ylab = "Amount of Udemy courses", 
              ylim = c(0,13000), 
              names.arg = rang_label_num_s)
-# Adds a small square with color explanation
+# Add legend
 legend(x = "topright", 
        legend = c(rang_label_num_s), 
        fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
        title = "Ranges") 
 
 # Histogram
-# For some graphs, it is necessary to download agricolae library
-install.packages("agricolae")
-library(agricolae)
 # Create an object that contains a histogram
 hist_num_s <- hist(udemy_data$num_subscribers, col=wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
               main = "Histogram of num_subscribers", 
               ylim = c(0,14000),
               xlab = "Number of subscribers", 
               ylab = "Number of courses")
-# Adds a small square with color explanation
+# Add legend
 legend(x = "topright", 
        legend = c(rang_label_num_s), 
        fill = wes_palette(n=10, name="Darjeeling1", type ="continuous"), 
@@ -72,15 +79,11 @@ ogive_num_s <- ogive.freq(hist_num_s, ,type="b", col=wes_palette(n=1, name="Darj
                xlab = "Number of subscribers", ylab = "Absolute Frequency")
 
 # Pie chart
-# Install selected package to make piecharts (plotly)
-install.packages("plotly")
-# Call needed libraries
-library(plotly)
-#Determinar FrecAbs_num_s as data.frame
-FrecAbs_num_s_frame = data.frame(FrecAbs_num_s)
+# Determinar frecAbs_num_s as data.frame
+frecAbs_num_s_frame = data.frame(frecAbs_num_s)
 # Create pie chart for absolute frequency
-pie_num_s = plot_ly(FrecAbs_num_s_frame, labels = rang_label_num_s, 
-                    values=FrecPor_num_s,  type = 'pie', 
+pie_num_s = plot_ly(frecAbs_num_s_frame, labels = rang_label_num_s, 
+                    values=frecPor_num_s,  type = 'pie', 
                     marker=list(colors=c(wes_palette(n=10, name="Darjeeling1", type = "continuous")))) %>% layout(
                     title="Pie Chart of num_subscribers absolute frequency")
 pie_num_s
@@ -126,7 +129,7 @@ coef_var_num_s <- coef_var(udemy_data$num_subscribers)
 
 # Graphic of atipic measurements
 # Boxplot
-atip_num_s <- boxplot(FrecAbs_num_s, 
+atip_num_s <- boxplot(frecAbs_num_s, 
               main = "Boxplot rating & atipic measurements",
               xlab = "Number of subscribers",
               ylab = "All courses",
@@ -136,11 +139,6 @@ atip_num_s <- boxplot(FrecAbs_num_s,
 
 
 # Tables
-# Install necessary libraries 
-install.packages("gt")
-library(gt)
-library(gtsummary)
-
 # Summary Table
 # Needed element names for table
 summary_num_s_names <- names(summary_num_s)
@@ -151,6 +149,7 @@ summary_num_s_tabl <- summary_num_s_frame%>%
   gt() %>% tab_header(title 
   = "Summary num_subscribers")%>% opt_row_striping() %>% 
   opt_table_lines("all")
+summary_num_s_tabl
 
 # Deciles table
 # Needed element names for table
@@ -162,6 +161,7 @@ decils_num_s_tabl <- decils_num_s_frame%>%
   gt() %>% tab_header(title 
   = "Deciles percentage and tendencies")%>% opt_row_striping() %>% 
   opt_table_lines("all")
+decils_num_s_tabl
 
 # Quintiles table
 # Needed element names for table
@@ -173,6 +173,7 @@ quint_num_s_tabl <- quint_num_s_frame%>%
   gt() %>% tab_header(title 
   = "Quintiles percentage and tendencies")%>% opt_row_striping() %>% 
   opt_table_lines("all")
+quint_num_s_tabl
 
 # Quartiles table
 # Needed element names for table
@@ -184,3 +185,4 @@ quarts_num_s_tabl <- quarts_num_s_frame%>%
   gt() %>% tab_header(title 
   = "Quartiles percentage and tendencies")%>% opt_row_striping() %>% 
   opt_table_lines("all")
+quarts_num_s_tabl
